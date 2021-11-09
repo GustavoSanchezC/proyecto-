@@ -137,11 +137,15 @@ public class Main {
                     case 2:
                         Shuffle temporal=new Shuffle();
                         System.out.println("LA BARAJA INICAL SE VE COMO: ");
+                        temporal.printShuffleFront();
+
+
                         System.out.println("Ingrese su Nombre");
                         String namePlayer = sc.nextLine();
                         Player playerOne=new Player(namePlayer);
+                        
                         listaJugadores.add(0, playerOne);
-                        temporal.printShuffleFront();
+
                         for (int i = 1; i < option+1; i++) {
                             String testPlayer = "Maquina"+ i ;
                             Player newPlayer =new Player(testPlayer);
