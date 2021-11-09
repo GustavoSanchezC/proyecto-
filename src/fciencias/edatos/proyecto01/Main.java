@@ -132,44 +132,45 @@ public class Main {
                 menu();
                 int option = sc.nextInt();
 
-                Shuffle temporal=new Shuffle();
-                System.out.println("LA BARAJA INICAL SE VE COMO: ");
-                temporal.printShuffleFront();
-
-
-                System.out.println("Ingrese su Nombre");
-                String namePlayer = sc.next();
-                Player playerOne=new Player(namePlayer);
-                listaJugadores.add(0, playerOne);
-
-                for (int i = 1; i < option+1; i++) {
-                    String testPlayer = "Maquina"+ i ;
-                    Player newPlayer =new Player(testPlayer);
-                    listaJugadores.add(i, newPlayer);
-
-                }
-                OldMaid game=new OldMaid(listaJugadores);
-                System.out.println("Sus Cartas son ");
-                System.out.println(game.getPlayer(0).toStringFront());
-                if(game.getPlayer(0).containsSameCards()){
-                    System.out.println("¿DESEAS ELIMINAR TODAS TUS CARTAS SIMILARES?");
-                    System.out.println("SI, pulse 1, NO pulse 2");
-                    int value=sc.nextInt();
-                    if(value==1){
-                        game.autonomousDeleteCards(game.getPlayer(0));
-                        System.out.println(game.getPlayer(0).toStringFront());
-                    }else if(value==2){
-                        System.out.println("NO SE BORRARON LAS CARTAS, POR FAVOR OPRIME QUE SI XD");
-                    }
-                }
-
-
-                if(option == 11) {
+                if (option <= 1 && option > 11){
+                    System.out.println("Opcion no soportada ");
+                   main(args);
+                } else if(option == 11) {
                     isRunning = false;
                     System.out.println("Vuelve pronto!");
-                    break;
-                }
 
+                }else {
+                    Shuffle temporal = new Shuffle();
+                    System.out.println("LA BARAJA INICAL SE VE COMO: ");
+                    temporal.printShuffleFront();
+
+
+                    System.out.println("Ingrese su Nombre");
+                    String namePlayer = sc.next();
+                    Player playerOne = new Player(namePlayer);
+                    listaJugadores.add(0, playerOne);
+
+                    for (int i = 1; i < option + 1; i++) {
+                        String testPlayer = "Maquina" + i;
+                        Player newPlayer = new Player(testPlayer);
+                        listaJugadores.add(i, newPlayer);
+
+                    }
+                    OldMaid game = new OldMaid(listaJugadores);
+                    System.out.println("Sus Cartas son ");
+                    System.out.println(game.getPlayer(0).toStringFront());
+                    if (game.getPlayer(0).containsSameCards()) {
+                        System.out.println("¿DESEAS ELIMINAR TODAS TUS CARTAS SIMILARES?");
+                        System.out.println("SI, pulse 1, NO pulse 2");
+                        int value = sc.nextInt();
+                        if (value == 1) {
+                            game.autonomousDeleteCards(game.getPlayer(0));
+                            System.out.println(game.getPlayer(0).toStringFront());
+                        } else if (value == 2) {
+                            System.out.println("NO SE BORRARON LAS CARTAS, POR FAVOR OPRIME QUE SI XD");
+                        }
+                    }
+                }
             } while(isRunning);
             /**
              *  evitamos que se pongan valores no deseados o no soportados
