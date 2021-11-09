@@ -1,8 +1,6 @@
 package fciencias.edatos.proyecto01;
 
 import java.util.Scanner;
-import fciencias.edatos.proyecto01.OldMaid;
-import fciencias.edatos.proyecto01.Player;
 
 public class Main {
     public static void main2(String[] args) {
@@ -133,53 +131,43 @@ public class Main {
             do {
                 menu();
                 int option = sc.nextInt();
-                switch(option) {
-                    case 2:
-                        Shuffle temporal=new Shuffle();
-                        System.out.println("LA BARAJA INICAL SE VE COMO: ");
-                        temporal.printShuffleFront();
+
+                Shuffle temporal=new Shuffle();
+                System.out.println("LA BARAJA INICAL SE VE COMO: ");
+                temporal.printShuffleFront();
 
 
-                        System.out.println("Ingrese su Nombre");
-                        String namePlayer = sc.nextLine();
-                        Player playerOne=new Player(namePlayer);
-                        
-                        listaJugadores.add(0, playerOne);
+                System.out.println("Ingrese su Nombre");
+                String namePlayer = sc.next();
+                Player playerOne=new Player(namePlayer);
+                listaJugadores.add(0, playerOne);
 
-                        for (int i = 1; i < option+1; i++) {
-                            String testPlayer = "Maquina"+ i ;
-                            Player newPlayer =new Player(testPlayer);
-                            listaJugadores.add(i, newPlayer);
-                            OldMaid game=new OldMaid(listaJugadores);
-                            System.out.println(game.getPlayer(i).toStringFront());
-                        }
+                for (int i = 1; i < option+1; i++) {
+                    String testPlayer = "Maquina"+ i ;
+                    Player newPlayer =new Player(testPlayer);
+                    listaJugadores.add(i, newPlayer);
+
+                }
+                OldMaid game=new OldMaid(listaJugadores);
+                System.out.println("Sus Cartas son ");
+                System.out.println(game.getPlayer(0).toStringFront());
+                if(game.getPlayer(0).containsSameCards()){
+                    System.out.println("¿DESEAS ELIMINAR TODAS TUS CARTAS SIMILARES?");
+                    System.out.println("SI, pulse 1, NO pulse 2");
+                    int value=sc.nextInt();
+                    if(value==1){
+                        game.autonomousDeleteCards(game.getPlayer(0));
+                        System.out.println(game.getPlayer(0).toStringFront());
+                    }else if(value==2){
+                        System.out.println("NO SE BORRARON LAS CARTAS, POR FAVOR OPRIME QUE SI XD");
+                    }
+                }
 
 
-
-                        break;
-                    case 3:
-
-                        break;
-                    case 4:
-
-                        break;
-                    case 5:
-
-                        break;
-                    case 6:
-
-                        break;
-                    case 9:
-
-                        break;
-                    case 10:
-
-                    case 11:
-                        isRunning = false;
-                        System.out.println("Vuelve pronto!");
-                        break;
-                    default:
-                        System.out.println("Opcion no valida. Vuelve a intentarlo.\n");
+                if(option == 11) {
+                    isRunning = false;
+                    System.out.println("Vuelve pronto!");
+                    break;
                 }
 
             } while(isRunning);
