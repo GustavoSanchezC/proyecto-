@@ -110,7 +110,25 @@ public class Main {
 
         
     }
-    /**
+    public static void theGame( List<Player> players , OldMaid game ){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Sus Cartas son ");
+        System.out.println(game.getPlayer(0).toStringFront());
+
+        if (game.getPlayer(0).containsSameCards()) {
+            System.out.println("¿DESEAS ELIMINAR TODAS TUS CARTAS SIMILARES?");
+            System.out.println("SI pulse 1, NO pulse 2");
+            int value = sc.nextInt();
+            if (value == 1) {
+                game.autonomousDeleteCards(game.getPlayer(0));
+                System.out.println(game.getPlayer(0).toStringFront());
+            }else if(value == 2) {
+                System.out.println("NO SE BORRARON LAS CARTAS, POR FAVOR OPRIME QUE SI XD");
+            }
+        }
+    }
+
+     /**
      * menu generado en forma de clase que despues mandamos a llamar en el main
      */
     public static void menu() {
@@ -153,26 +171,12 @@ public class Main {
 
                 }
 
-
                 OldMaid game = new OldMaid(listaJugadores);
                 for (int i = 0; i < listaJugadores.size() ; i++) {
                     System.out.println("los jugadores son :");
-                    System.out.println(game.getPlayer(0).toStringBack());
+                    System.out.println(game.getPlayer(i).toStringBack());
                 }
-
-                System.out.println("Sus Cartas son ");
-                System.out.println(game.getPlayer(0).toStringFront());
-                if (game.getPlayer(0).containsSameCards()) {
-                    System.out.println("¿DESEAS ELIMINAR TODAS TUS CARTAS SIMILARES?");
-                    System.out.println("SI pulse 1, NO pulse 2");
-                    int value = sc.nextInt();
-                    if (value == 1) {
-                        game.autonomousDeleteCards(game.getPlayer(0));
-                        System.out.println(game.getPlayer(0).toStringFront());
-                    }else if(value == 2) {
-                        System.out.println("NO SE BORRARON LAS CARTAS, POR FAVOR OPRIME QUE SI XD");
-                    }
-                }
+                theGame(listaJugadores , game);
             }
 
         } catch (Exception e) {

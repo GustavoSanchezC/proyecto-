@@ -50,7 +50,7 @@ public class Card {
 
     /**
      * Metodo que establece la parte frontal de la carta
-     * @param valueCard
+     * @param 
      */
     public void setFrontEnd(int valueCardFamily, int typeCard){
         switch (valueCardFamily) {
