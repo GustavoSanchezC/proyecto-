@@ -6,17 +6,10 @@ public class Card {
     private String frontEnd;
     private final static String backEnd="🂠";
 
-
     //ESTABLECER COLORES DE LAS TARJETAS
-    private final static String red="\033[31m"; 
-    private final static String blue="\033[34m"; 
+    private final static String red="\033[31m";
+    private final static String blue="\033[34m";
     private final static String reset="\u001B[0m";
-
-    private final static String green="\033[32m"; 
-    private final static String yellow="\033[33m"; 
-    private final static String purple="\033[35m"; 
-    private final static String cyan="\033[36m"; 
-    
 
     /**
      * Contructor para la carta
@@ -27,7 +20,7 @@ public class Card {
         setFrontEnd(valueFamily, typeCard);
     }
 
-    /** 
+    /**
      * @return el valor de la carta a la familia que pretenece
      */
     public int getValueFamily(){
@@ -50,7 +43,7 @@ public class Card {
 
     /**
      * Metodo que establece la parte frontal de la carta
-     * @param 
+     * @param
      */
     public void setFrontEnd(int valueCardFamily, int typeCard){
         switch (valueCardFamily) {

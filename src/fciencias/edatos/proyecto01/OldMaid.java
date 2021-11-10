@@ -1,21 +1,11 @@
 package fciencias.edatos.proyecto01;
 
-import java.util.Random; 
+import java.util.Random;
 
 public class OldMaid {
-    
+
     private Shuffle baraja=new Shuffle();
     private List<Player> players=new List<Player>();
-    private Player playerOne;
-    private Player playerTwo;
-    private Player playerThree;
-    private Player playerFour;
-    private Player playerFive;
-    private Player playerSix;
-    private Player playerSeven;
-    private Player playerEight;
-    private Player playerNine;
-    private Player playerTen;
 
     public OldMaid(List<Player> players ){
         baraja.shuffler();
@@ -116,7 +106,7 @@ public class OldMaid {
                             this.players.get(7).setCard(card);
                         }
                         break;
-                    case 5://eight players
+                    case 5://nine players
                         if (i <= 6) {
                             this.players.get(0).setCard(card);
                         } else if (i > 6 && i <= 12) {
@@ -140,7 +130,7 @@ public class OldMaid {
                         break;
                 }
             }
-        }else {
+        }else { //ten players
             for (int i = 0; i < baraja.sizeShuffle(); i++) {
                 Card card = baraja.getCard(i);
                 if (i <= 6) {
@@ -167,23 +157,6 @@ public class OldMaid {
             }
         }
     }
-    
-    public OldMaid(Player playerOne, Player playerTwo){
-        baraja.shuffler();
-        this.playerOne=playerOne;
-        this.playerTwo=playerTwo;
-        players.add(0, playerOne);
-        players.add(0, playerTwo);
-        int average=baraja.sizeShuffle()/2;
-        for(int i=0; i<baraja.sizeShuffle(); i++){
-            Card card= baraja.getCard(i);
-            if(i<=average){
-                playerOne.setCard(card);
-            }else{
-                playerTwo.setCard(card);
-            }
-        }
-    }
 
     /**
      * Metodo que borra todas las cartas del jugador de la maquina su primera vez
@@ -205,9 +178,36 @@ public class OldMaid {
                         System.out.println(cardOne.getFrontEnd()+"  "+cardTwo.getFrontEnd());
                     }
                 }
-            }        
+            }
         }else{
-            System.out.println("NO HAYA CARTAS DEL MISMO PALO\n");
+            System.out.println("NO HAY CARTAS DEL MISMO PALO PARA EL JUGADOR "+jugador.getNamePlayer()+"\n");
+        }
+    }
+
+    /**
+     * Metodo que hace el intercambio de carta de jugador contra maquina
+     *  el jugador maquina anterior
+     * @param i indice de la primer carta a bajar
+     * @param j indice de la segunda carta a barajar
+     */
+    public void deleteCardsRealPlayer(Player actualPlayer, int i, int j){
+        if(i<1||i>actualPlayer.sizeListCards()||j<1||j>actualPlayer.sizeListCards()||i==j){
+            throw new IndexOutOfBoundsException();
+        }
+        if(actualPlayer.getCard(i-1).getValueFamily()==actualPlayer.getCard(j-1).getValueFamily()){
+            if(i<j){
+                Card temp=actualPlayer.removeCardList(i-1);
+                Card tempo=actualPlayer.removeCardList(j-2);
+                System.out.println("LAS CARTAS ELIMINADAS DE "+actualPlayer.getNamePlayer()+" SON:");
+                System.out.println(temp.getFrontEnd()+" "+tempo.getFrontEnd());
+            }else{
+                Card temp=actualPlayer.removeCardList(j-1);
+                Card tempo=actualPlayer.removeCardList(i-2);
+                System.out.println("LAS CARTAS ELIMINADAS DE "+actualPlayer.getNamePlayer()+" SON:");
+                System.out.println(temp.getFrontEnd()+" "+tempo.getFrontEnd());
+            }
+        }else{
+            System.out.println("POR FAVOR, INGRESE LAS POSICIONES CORRECTAS PARA BORRAR LA CARTA");
         }
     }
 
@@ -220,7 +220,7 @@ public class OldMaid {
         Random rd=new Random();
         int change=rd.nextInt(prevPlayer.sizeListCards());
         Card temporal=prevPlayer.removeCardList(change);
-        actualPlayer.addCard(temporal);
+        actualPlayer.setCard(temporal);
     }
 
     /**
@@ -231,9 +231,10 @@ public class OldMaid {
     public void exchangeMachineCardVSPlayer(Player actualPlayer, Player prevPlayer, int i){
         if(i>0&&i<=prevPlayer.sizeListCards()){
             Card temp=prevPlayer.removeCardList(i-1);
-            actualPlayer.addCard(temp);
+            actualPlayer.setCard(temp);
         }
     }
+
 
     /**
      * @return la lista de jugadores
@@ -249,17 +250,5 @@ public class OldMaid {
      */
     public Player getPlayer(int i){
         return players.get(i);
-    }
-
-    public void deleteCardsAuto(Card card){
-        List<Card> temp=playerOne.getCardsPlayer();     
-    }
-
-    public Player playerOne(){
-        return players.get(0);
-    }
-
-    public Player playerTwo(){
-        return playerTwo;
     }
 }

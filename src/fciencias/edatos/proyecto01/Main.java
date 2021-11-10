@@ -3,20 +3,20 @@ package fciencias.edatos.proyecto01;
 import java.util.Scanner;
 
 public class Main {
-    public static void main2(String[] args) {
+   /** public static void main2(String[] args) {
 
-        /**game.exchangeMachineCardVSPlayer(playerOne, playerTwo);
+        game.exchangeMachineCardVSPlayer(playerOne, playerTwo);
         System.out.println(game.playerOne().toStringFront());
-        System.out.println(game.playerTwo().toStringFront());*/
+        System.out.println(game.playerTwo().toStringFront());
         
         
-        /**System.out.println("----------------------------------------------INGRE");
+        System.out.println("----------------------------------------------INGRE");
         int n=sr.nextInt();
         game.exchangeMachineCardVSPlayer(playerTwo, playerOne, n);
         System.out.println(game.playerOne().toStringFront());
-        System.out.println(game.playerTwo().toStringFront());*/
+        System.out.println(game.playerTwo().toStringFront());
         
-        /**Scanner sr=new Scanner(System.in);
+        Scanner sr=new Scanner(System.in);
 
         Shuffle temporal=new Shuffle();
         System.out.println("            SOLITARIO            \n");
@@ -56,76 +56,53 @@ public class Main {
                 System.out.println(game.playerOne().toStringFront());
             }
         }
-        
-    
-        
-        System.out.println(game.playerTwo().toStringFront());*/
 
-        Player playerOne=new Player("111111111111");
-        Player playerTwo=new Player("222222222222");
-        Player playerTres=new Player("33333333333");
-        Player playerCuatro=new Player("4444444444444");
-        Player playerCinco=new Player("5555555555555");
-        Player playerSeis=new Player("6666666666666");
-        Player playerSIETE=new Player("777777777777");
-        Player playerOCHO=new Player("8888888888888");
-        Player playerNUEVE=new Player("99999999999");
-        Player player10=new Player("CRISTIAN");
 
-        List<Player> listaJugadores=new List<Player>();
-        listaJugadores.add(0, playerOne);
-        listaJugadores.add(1, playerTwo);
-        listaJugadores.add(2, playerTres);
-        listaJugadores.add(3, playerCuatro);
-        listaJugadores.add(4, playerCinco);
-        listaJugadores.add(5, playerSeis);
-        listaJugadores.add(6, playerSIETE);
-        listaJugadores.add(7, playerOCHO);
-        listaJugadores.add(8, playerNUEVE);
-        listaJugadores.add(9, player10);
 
-        OldMaid game=new OldMaid(listaJugadores);
-        System.out.println(game.getPlayer(0).toStringFront());
-        System.out.println(game.getPlayer(1).toStringFront());
-        System.out.println(game.getPlayer(2).toStringFront());
-        System.out.println(game.getPlayer(3).toStringFront());
-        System.out.println(game.getPlayer(4).toStringFront());
-        System.out.println(game.getPlayer(5).toStringFront());
-        System.out.println(game.getPlayer(6).toStringFront());
-        System.out.println(game.getPlayer(7).toStringFront());
-        System.out.println(game.getPlayer(8).toStringFront());
-        System.out.println(game.getPlayer(9).toStringFront());
 
-        for(int i=0; i<game.getPlayers().size(); i++){
-            Player temporal=game.getPlayer(i);
-            game.autonomousDeleteCards(temporal);
-            System.out.println(game.getPlayer(i).toStringFront());
-        }
-        
-        
-        /**System.out.println("\n");
-        System.out.println(game.playerOne().toStringFront()); //CAMBIAR
-        System.out.println("\n"+game.playerTwo().toStringFront()); 
-        game.autonomousDeleteCards(playerOne);*/
 
         
-    }
+    } */
+
+     public static void aux (OldMaid game){
+         Scanner sc = new Scanner(System.in);
+         if (game.getPlayer(0).containsSameCards()) {
+             System.out.println("¿DESEAS ELIMINAR TODAS TUS CARTAS SIMILARES?");
+             System.out.println("SI pulse 1, NO pulse 2");
+             int value = sc.nextInt();
+             if (value == 1) {
+                 game.autonomousDeleteCards(game.getPlayer(0));
+                 System.out.println(game.getPlayer(0).toStringFront());
+             }else if(value == 2) {
+                 System.out.println("NO SE BORRARON LAS CARTAS, POR FAVOR OPRIME QUE SI XD");
+             }
+         }
+     }
     public static void theGame( List<Player> players , OldMaid game ){
         Scanner sc = new Scanner(System.in);
-        System.out.println("Sus Cartas son ");
-        System.out.println(game.getPlayer(0).toStringFront());
-
-        if (game.getPlayer(0).containsSameCards()) {
-            System.out.println("¿DESEAS ELIMINAR TODAS TUS CARTAS SIMILARES?");
-            System.out.println("SI pulse 1, NO pulse 2");
-            int value = sc.nextInt();
-            if (value == 1) {
-                game.autonomousDeleteCards(game.getPlayer(0));
-                System.out.println(game.getPlayer(0).toStringFront());
-            }else if(value == 2) {
-                System.out.println("NO SE BORRARON LAS CARTAS, POR FAVOR OPRIME QUE SI XD");
-            }
+        int turnos = players.size();
+        for (int i = 0; i < players.size() ; i++) {
+            System.out.println("los jugadores son :");
+            System.out.println(game.getPlayer(i).toStringBack());
         }
+        do {
+            System.out.println("Tus Cartas son ");
+            System.out.println(game.getPlayer(0).toStringFront());
+            for (int i = 1; i < turnos+1; i++) {
+                aux(game);
+                if(game.getPlayer(i).containsSameCards()){
+                    game.autonomousDeleteCards(game.getPlayer(i));
+                }
+                game.exchangeMachineCardVSMachine(game.getPlayer(i) , game.getPlayer(i+1));
+                if (i == players.size()-1) {
+                    game.exchangeMachineCardVSMachine(game.getPlayer(i) , game.getPlayer(0));
+                    System.out.println("Un jugador tomo tu carta ");
+                    game.exchangeMachineCardVSMachine(game.getPlayer(0), game.getPlayer(1) );
+                }
+
+            }
+        }while (players.size()>1);
+
     }
 
      /**
@@ -168,14 +145,9 @@ public class Main {
                     String testPlayer = "Maquina" + i;
                     Player newPlayer = new Player(testPlayer);
                     listaJugadores.add(i, newPlayer);
-
                 }
 
                 OldMaid game = new OldMaid(listaJugadores);
-                for (int i = 0; i < listaJugadores.size() ; i++) {
-                    System.out.println("los jugadores son :");
-                    System.out.println(game.getPlayer(i).toStringBack());
-                }
                 theGame(listaJugadores , game);
             }
 

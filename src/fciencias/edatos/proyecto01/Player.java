@@ -1,13 +1,13 @@
 package fciencias.edatos.proyecto01;
 
 public class Player {
-    
+
     private String name;
     private List<Card> cards;
 
     /**
      * Contructor para generar un nuevo jugador
-     * @param name 
+     * @param name
      */
     public Player(String name){
         this.name=name;
@@ -22,6 +22,9 @@ public class Player {
         cards.add(0, card);
     }
 
+    /**
+     * @return el nombre del jugador
+     */
     public String getNamePlayer(){
         return name;
     }
@@ -34,13 +37,8 @@ public class Player {
         return cards.get(i);
     }
 
-    public void addCard(Card carta){
-        cards.add(0, carta);
-
-    }
-
     /**
-     * Metodo que remueve 
+     * Metodo que remueve
      * @param i
      * @return
      */
@@ -64,7 +62,6 @@ public class Player {
 
     /**
      * Metodo para jugador que nos avisa si todavia tiene cartas pares
-     * @param jugador
      * @return
      */
     public boolean containsSameCards(){
